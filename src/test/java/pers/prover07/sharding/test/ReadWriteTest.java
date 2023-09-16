@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+import pers.prover07.sharding.mapper.OrderMapper;
 import pers.prover07.sharding.mapper.UserMapper;
+import pers.prover07.sharding.model.Order;
 import pers.prover07.sharding.model.User;
 
 import java.util.List;
@@ -23,6 +25,9 @@ public class ReadWriteTest {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private OrderMapper orderMapper;
 
     @Test
     public void test_Insert() {
@@ -54,6 +59,19 @@ public class ReadWriteTest {
 
         List<User> users2 = userMapper.selectList(null);
         users2.forEach(System.out::println);
+    }
+
+    @Test
+    public void test_insertUserAndOrder() {
+        User user = new User();
+        user.setUsername("ceshi");
+
+        Order order = new Order();
+        order.setOrderNo("1111");
+        order.setUsername("ceshi");
+
+        userMapper.insert(user);
+        orderMapper.insert(order);
     }
 
 }
