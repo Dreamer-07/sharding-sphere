@@ -17,7 +17,11 @@ import java.math.BigDecimal;
 @Data
 public class Order {
 
-    @TableId(type = IdType.ASSIGN_ID)
+    /**
+     * 如果没有配置 sharding-sphere-jdbc 的分布式序列，就自动递增
+     * 如果配置了 sharding-sphere-jdbc 的分布式序列，就会采用 sharding-sphere-jdbc 的分布式序列
+     */
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     private String orderNo;
